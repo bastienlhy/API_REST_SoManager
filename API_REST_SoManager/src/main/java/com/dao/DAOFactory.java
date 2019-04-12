@@ -87,4 +87,8 @@ public class DAOFactory {
     public UtilisateurDAO getUtilisateurDao() {
         return new UtilisateurDAOImpl(this);
     }
+    
+    public SujetDAO getSujetDao() {
+        return new SujetDAOImpl(this);
+    }
 }

@@ -16,18 +16,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dao.DAOFactory;
+import com.dao.SujetDAO;
 import com.dao.UtilisateurDAO;
 import com.dao.VilleDAO;
 import com.models.Ville;
 
+import fr.eseo.ld.beans.Sujet;
 import fr.eseo.ld.beans.Utilisateur;
 
 @RestController
 public class RestService {
     
     private static final Logger logger = LoggerFactory.getLogger(RestService.class);
-	private VilleDAO villeDAO;
+    
 	private UtilisateurDAO utilisateurDao;
+	private SujetDAO sujetDao;
+	
 	private DAOFactory daoFactory = DAOFactory.getInstance();
     
     @GetMapping(value = "/")
@@ -54,31 +58,40 @@ public class RestService {
      */
 
 	@CrossOrigin
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
+	@RequestMapping(value = "/get/users", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Utilisateur> get(@RequestParam(required = false, value = "value") String value) {
+	public List<Utilisateur> getUsers(@RequestParam(required = false, value = "value") String value) {
 
 		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
 
 		this.utilisateurDao = daoFactory.getUtilisateurDao();
 		
 		listeUtilisateur = utilisateurDao.lister();
-		System.out.println("listeUtilisateur : " + listeUtilisateur);
 		return listeUtilisateur;
 	}
 	
+	 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+     * 										SUJETS 
+     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	
+	/**
+     * Description : Renvoie la liste de tous les utilisateurs
+     * Path : /get
+     * Paramètres : none
+     * Résultat : Liste<Ville>
+     */
+
 	@CrossOrigin
-	@RequestMapping(value = "/get2", method = RequestMethod.GET)
+	@RequestMapping(value = "/get/sujets", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Ville> get2(@RequestParam(required = false, value = "value") String value) {
+	public List<Sujet> getSujets(@RequestParam(required = false, value = "value") String value) {
 
-		List<Ville> listeVille = new ArrayList<Ville>();
+		List<Sujet> listeSujets = new ArrayList<Sujet>();
 
-		this.villeDAO = daoFactory.getVilleDao();
+		this.sujetDao = daoFactory.getSujetDao();
 		
-		listeVille = villeDAO.lister();
-		System.out.println("Liste ville : " + listeVille);
-		return listeVille;
+		listeSujets = sujetDao.lister();
+		return listeSujets;
 	}
 	
 	// ###########################################################################################
