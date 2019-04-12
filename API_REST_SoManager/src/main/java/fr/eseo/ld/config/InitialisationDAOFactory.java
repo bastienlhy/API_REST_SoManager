@@ -5,7 +5,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.dao.DAOFactory;
+import fr.eseo.ld.dao.DAOFactory;
 
 /**
  * Classe d'Initialisation de la DAOFactory.

@@ -1,4 +1,4 @@
-package com.config;
+package fr.eseo.ld.config;
 
 public class DAOConfigurationException extends RuntimeException {
     /**

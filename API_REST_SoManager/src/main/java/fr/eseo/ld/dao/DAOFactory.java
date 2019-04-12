@@ -1,4 +1,4 @@
-package com.dao;
+package fr.eseo.ld.dao;
 
 
 import java.sql.Connection;
@@ -6,13 +6,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.config.DAOConfigurationException;
-
-import fr.eseo.ld.beans.Utilisateur;
+import fr.eseo.ld.config.DAOConfigurationException;
 
 public class DAOFactory {
 
-    private static final String FICHIER_PROPERTIES = "dao.properties";
+    //private static final String FICHIER_PROPERTIES = "dao.properties";
     private static String PROPERTY_URL = "jdbc:mysql://localhost/somanager?useLegacyDatetimeCode=false&serverTimezone=Europe/Paris";
     private static String PROPERTY_DRIVER = "com.mysql.jdbc.Driver";
     private static String PROPERTY_NOM_UTILISATEUR = "root";
@@ -70,7 +68,7 @@ public class DAOFactory {
 
         DAOFactory instance = new DAOFactory( url, nomUtilisateur, motDePasse );
         return instance;
-    }
+    }    
 
     /* Méthode chargée de fournir une connexion à la base de données */
      /* package */ public Connection getConnection() throws SQLException {
@@ -80,10 +78,7 @@ public class DAOFactory {
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
      * Méthodes de récupération de l'implémentation des différents DAO 
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */ 
-    public VilleDAO getVilleDao() {
-        return new VilleDaoImpl(this);
-    }
-    
+     
     public UtilisateurDAO getUtilisateurDao() {
         return new UtilisateurDAOImpl(this);
     }

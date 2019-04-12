@@ -1,6 +1,6 @@
-package com.dao;
+package fr.eseo.ld.dao;
 
-import static com.dao.DAOUtilitaire.fermetures;
+import static fr.eseo.ld.dao.DAOUtilitaire.fermetures;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

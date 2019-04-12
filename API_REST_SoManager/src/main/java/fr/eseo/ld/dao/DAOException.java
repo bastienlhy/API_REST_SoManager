@@ -1,4 +1,4 @@
-package com.dao;
+package fr.eseo.ld.dao;
 
 /**
  * Classe de l'Exception liée à un DAO.

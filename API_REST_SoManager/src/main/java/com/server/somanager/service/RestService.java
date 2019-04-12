@@ -15,14 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dao.DAOFactory;
-import com.dao.SujetDAO;
-import com.dao.UtilisateurDAO;
-import com.dao.VilleDAO;
-import com.models.Ville;
-
 import fr.eseo.ld.beans.Sujet;
 import fr.eseo.ld.beans.Utilisateur;
+import fr.eseo.ld.dao.DAOFactory;
+import fr.eseo.ld.dao.SujetDAO;
+import fr.eseo.ld.dao.UtilisateurDAO;
 
 @RestController
 public class RestService {

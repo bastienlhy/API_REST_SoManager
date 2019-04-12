@@ -1,4 +1,4 @@
-package com.dao;
+package fr.eseo.ld.dao;
 
 import java.util.List;
 
