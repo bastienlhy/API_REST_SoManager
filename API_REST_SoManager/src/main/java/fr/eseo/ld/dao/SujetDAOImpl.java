@@ -1,11 +1,13 @@
 package fr.eseo.ld.dao;
 
 import static fr.eseo.ld.dao.DAOUtilitaire.fermetures;
+import static fr.eseo.ld.dao.DAOUtilitaire.initialisationRequetePreparee;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,18 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import fr.eseo.ld.beans.Sujet;
+
+/**
+ * Classe de classe implémentées de DAO - SujetDAOImpl
+ * 
+ * <p>Utilisation du modèle DAO.</p>
+ * 
+ * @version 1.0
+ * @author Thessalène JEAN-LOUIS
+ *
+ * @see fr.eseo.ld.dao.SujetDAOImpl
+ * @see org.junit
+ */
 
 public class SujetDAOImpl implements SujetDAO{
 	
@@ -31,9 +45,12 @@ public class SujetDAOImpl implements SujetDAO{
 	private static final String ATTRIBUT_NOTE_INTERET = "noteInteretTechno";
 	private static final String ATTRIBUT_NOTE_INTERET_SUJET = "noteInteretSujet";
 	
-	/* Requetes SQLS */
-	
+	/* Requetes SQL */
 	private static final String SQL_SELECT_TOUT = "SELECT * FROM Sujet";
+	
+	/* Requetes SQL pour trouver un sujet à partir de son ID */
+	private static final String SQL_SELECT_SUJET_A_PARTIR_ID = "SELECT * FROM Sujet WHERE idSujet= ? ";
+	
 
 	/* Logger */
 	private static Logger logger = Logger.getLogger(SujetDAO.class.getName());
@@ -73,12 +90,45 @@ public class SujetDAOImpl implements SujetDAO{
 		return sujets;
 	}
 	
+	
+	/**
+	 * Renvoie un Sujet à partir de son ID.
+	 * 
+	 * @param idSujet l'ID du Sujet que l'on souhaite trouver dans la BDD.
+	 * @return sujet le sujet trouvé dans la BDD.
+	 */
+	@Override
+	public Sujet trouver(Long idSujet) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Sujet sujet = null;
+		try {
+			if(idSujet == null)
+				throw new SQLException();
+			// création d'une connexion grâce à la DAOFactory plac�e en attribut de la classe
+			connection = this.creerConnexion();
+			preparedStatement = connection.prepareStatement(initialisationRequetePreparee(SQL_SELECT_SUJET_A_PARTIR_ID,
+					String.valueOf(idSujet)),Statement.RETURN_GENERATED_KEYS);
+			resultSet = preparedStatement.executeQuery();
+			resultSet.next();
+			sujet = recupererSujet(resultSet);
+		} catch (SQLException e) {
+			logger.log(Level.WARN, "Échec de la recherche d'un sujet à partir de son ID.", e);
+		} finally {
+			// fermeture des ressources utilis�es
+			fermetures(resultSet, preparedStatement, connection);
+		}
+		return sujet;
+		
+	}
+	
 	// #################################################
 		// #               M�thodes priv�es                #
 		// #################################################
 		
 		/**
-		 * Cr�e une connexion à la BDD.
+		 * Crée une connexion à la BDD.
 		 * 
 		 * @return connection la connexion à la BDD.
 		 * @throws SQLException
@@ -113,4 +163,5 @@ public class SujetDAOImpl implements SujetDAO{
 			return sujet;
 		}
 
+		
 }

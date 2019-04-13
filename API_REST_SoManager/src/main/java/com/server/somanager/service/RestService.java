@@ -21,6 +21,17 @@ import fr.eseo.ld.dao.DAOFactory;
 import fr.eseo.ld.dao.SujetDAO;
 import fr.eseo.ld.dao.UtilisateurDAO;
 
+/**
+ * Classe de requêtes API - Ccontroleur 
+ * 
+ * <p>Utilisation du modèle DAO.</p>
+ * 
+ * @version 1.0
+ * @author Thessalène JEAN-LOUIS
+ * 
+ */
+
+
 @RestController
 public class RestService {
     
@@ -48,10 +59,10 @@ public class RestService {
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     
     /**
-     * Description : Renvoie la liste de tous les utilisateurs
-     * Path : /get
-     * Paramètres : none
-     * Résultat : Liste<Ville>
+     * @Description  Renvoie la liste de tous les utilisateurs
+     * @Path  /get
+     * @Params  none
+     * @Result  Liste<Utilisateur>
      */
 
 	@CrossOrigin
@@ -67,15 +78,17 @@ public class RestService {
 		return listeUtilisateur;
 	}
 	
+	///get/user/connect?identifiant=test&password=test
+	
 	 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
      * 										SUJETS 
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
 	/**
-     * Description : Renvoie la liste de tous les utilisateurs
-     * Path : /get
-     * Paramètres : none
-     * Résultat : Liste<Ville>
+     * @Description  Renvoie la liste de tous les utilisateurs
+     * @Path  /get/sujets
+     * @Params none
+     * @Result Liste<Sujet>
      */
 
 	@CrossOrigin
@@ -89,6 +102,27 @@ public class RestService {
 		
 		listeSujets = sujetDao.lister();
 		return listeSujets;
+	}
+	
+	/**
+     * @Description : Renvoie les informations relatives à un sujet
+     * @Path : /get
+     * @params id l'id du sujet recherché
+     * @return Liste<Sujet> liste contenant le sujet recherché
+     */
+
+	@CrossOrigin
+	@RequestMapping(value = "/get/sujetById", method = RequestMethod.GET)
+	@ResponseBody
+	public Sujet getSujetById(@RequestParam(required = true, value = "idSujet") Long value) {
+
+		Sujet sujet = new Sujet();
+
+		this.sujetDao = daoFactory.getSujetDao();
+		
+		System.out.println("Valeur : "+ value);
+		sujet = sujetDao.trouver(value);
+		return sujet;
 	}
 	
 	// ###########################################################################################

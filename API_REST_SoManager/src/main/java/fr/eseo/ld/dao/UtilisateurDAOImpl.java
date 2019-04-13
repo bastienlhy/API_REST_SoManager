@@ -14,6 +14,18 @@ import org.apache.log4j.Logger;
 
 import fr.eseo.ld.beans.Utilisateur;
 
+/**
+ * Classe de classe implémentées de DAO - UtilisateurDAOImpl
+ * 
+ * <p>Utilisation du modèle DAO.</p>
+ * 
+ * @version 1.0
+ * @author Thessalène JEAN-LOUIS
+ *
+ * @see fr.eseo.ld.dao.UtilisateurDAOImpl
+ * @see org.junit
+ */
+
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 	/* Attributs de l'entité Utilisateur */
 	private static final String ATTRIBUT_NOM = "nom";
