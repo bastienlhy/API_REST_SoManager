@@ -79,6 +79,8 @@ public class SujetDAOImpl implements SujetDAO{
 			preparedStatement = connection.prepareStatement(SQL_SELECT_TOUT);
 			resultSet = preparedStatement.executeQuery();
 			// r�cup�ration des valeurs des attributs de la BDD pour les mettre dans une liste
+			resultSet.first();
+			sujets.add(recupererSujet(resultSet));
 			while (resultSet.next()) {
 				sujets.add(recupererSujet(resultSet));
 			}
